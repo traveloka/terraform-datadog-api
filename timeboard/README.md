@@ -10,7 +10,7 @@ Usage
 
 ```hcl
 module "timeboard_api_beical-app" {
-  source         = "github.com/traveloka/terraform-datadog-api.git//timeboard"
+  source         = "github.com/traveloka/terraform-datadog-api//timeboard"
   product_domain = "${var.product_domain}"
   cluster        = "${var.cluster}"
 }
