@@ -1,5 +1,5 @@
 module "latency_p95" {
-  source  = "github.com/traveloka/terraform-datadog-monitor?ref=v0.1.3"
+  source  = "github.com/traveloka/terraform-datadog-monitor"
   enabled = "${var.enabled}"
 
   product_domain = "${var.product_domain}"
@@ -18,7 +18,7 @@ module "latency_p95" {
 }
 
 module "exception" {
-  source  = "github.com/traveloka/terraform-datadog-monitor?ref=v0.1.3"
+  source  = "github.com/traveloka/terraform-datadog-monitor"
   enabled = "${var.enabled}"
 
   product_domain = "${var.product_domain}"
