@@ -13,8 +13,19 @@ variable "cluster" {
   description = "The name of the cluster"
 }
 
+variable "environment" {
+  type        = "string"
+  default     = "*"
+  description = "The name of the environment"
+}
+
 variable "latency_p95_thresholds" {
-  type        = "map"
+  type = "map"
+
+  default = {
+    critical = 0
+  }
+
   description = "The warning and critical thresholds for API Latency monitoring"
 }
 
@@ -31,7 +42,12 @@ variable "latency_p95_escalation_message" {
 }
 
 variable "exception_thresholds" {
-  type        = "map"
+  type = "map"
+
+  default = {
+    critical = 0
+  }
+
   description = "The warning and critical thresholds for API Exception monitoring"
 }
 
