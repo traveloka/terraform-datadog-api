@@ -1,8 +1,11 @@
-module "beical_app_monitor_api" {
+module "api" {
   source         = "../../"
   product_domain = "BEI"
   service        = "beical"
   cluster        = "beical-app"
+  environment    = "production"
+
+  recipients = ["slack-bei", "pagerduty-bei", "bei@traveloka.com"]
 
   latency_p95_thresholds = {
     critical = 1000
@@ -13,6 +16,4 @@ module "beical_app_monitor_api" {
     critical = 50
     warning  = 20
   }
-
-  recipients = ["slack-bei", "pagerduty-bei", "bei@traveloka.com"]
 }
