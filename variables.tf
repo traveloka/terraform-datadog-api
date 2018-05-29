@@ -23,7 +23,7 @@ variable "latency_p95_thresholds" {
   type = "map"
 
   default = {
-    critical = 0
+    critical = "No default value"
   }
 
   description = "The warning and critical thresholds for API Latency monitoring"
@@ -45,7 +45,7 @@ variable "exception_thresholds" {
   type = "map"
 
   default = {
-    critical = 0
+    critical = "No default value"
   }
 
   description = "The warning and critical thresholds for API Exception monitoring"
