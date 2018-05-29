@@ -6,7 +6,7 @@ module "api" {
   environment    = "production"
 
   recipients        = ["slack-bei", "pagerduty-bei", "bei@traveloka.com"]
-  renotify_interval = 60
+  renotify_interval = 0
   notify_audit      = false
 
   latency_p95_thresholds = {
