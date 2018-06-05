@@ -84,6 +84,8 @@ module "monitor_latency_p95" {
   product_domain = "${var.product_domain}"
   service        = "${var.service}"
   environment    = "${var.environment}"
+  tags           = "${var.tags}"
+  timeboard_id   = "${join(",", datadog_timeboard.api.*.id)}"
 
   name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - API Latency is High on Class: {{ classname }} Method: {{ methodname }}"
   query              = "avg(last_1m):avg:api.res.ltcy.p95{cluster:${var.cluster}, environment:${var.environment}} by {host,classname,methodname} >= ${var.latency_p95_thresholds["critical"]}"
@@ -91,7 +93,9 @@ module "monitor_latency_p95" {
   message            = "${var.latency_p95_message}"
   escalation_message = "${var.latency_p95_escalation_message}"
 
-  recipients = "${var.recipients}"
+  recipients         = "${var.recipients}"
+  alert_recipients   = "${var.alert_recipients}"
+  warning_recipients = "${var.warning_recipients}"
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
@@ -104,6 +108,8 @@ module "monitor_exception" {
   product_domain = "${var.product_domain}"
   service        = "${var.service}"
   environment    = "${var.environment}"
+  tags           = "${var.tags}"
+  timeboard_id   = "${join(",", datadog_timeboard.api.*.id)}"
 
   name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - API Exception is High on Class: {{ classname }} Method: {{ methodname }}"
   query              = "avg(last_1m):sum:api.res.exc.count{cluster:${var.cluster}, environment:${var.environment}} by {host,classname,methodname} >= ${var.exception_thresholds["critical"]}"
@@ -111,7 +117,9 @@ module "monitor_exception" {
   message            = "${var.exception_message}"
   escalation_message = "${var.exception_escalation_message}"
 
-  recipients = "${var.recipients}"
+  recipients         = "${var.recipients}"
+  alert_recipients   = "${var.alert_recipients}"
+  warning_recipients = "${var.warning_recipients}"
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
