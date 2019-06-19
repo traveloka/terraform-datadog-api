@@ -3,7 +3,7 @@ locals {
 }
 
 resource "datadog_timeboard" "api" {
-  count = "${var.enabled}"
+  count = "${var.enabled ? 1 : 0}"
 
   title       = "${var.product_domain} - ${var.cluster} - ${var.environment} - API"
   description = "A generated timeboard for API"
