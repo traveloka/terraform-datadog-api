@@ -105,7 +105,8 @@ variable "exception_escalation_message" {
   description = "The escalation message when API Exception monitor isn't resolved for given time"
 }
 
-variable "monitor_exception_time_modifier" {
-  type = "string"
-  default = "last_1m"
+variable "monitor_exception_time_evaluation" {
+  type        = "string"
+  default     = "last_1m"
+  description = "time window evaluation that triggers an alert for API Exception"
 }

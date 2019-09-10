@@ -112,7 +112,7 @@ module "monitor_exception" {
   timeboard_id   = "${join(",", datadog_timeboard.api.*.id)}"
 
   name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - API Exception is High on Class: {{ classname }} Method: {{ methodname }}"
-  query              = "avg(${var.monitor_exception_time_modifier}):sum:api.res.exc.count{cluster:${var.cluster}, environment:${var.environment}} by {host,classname,methodname} >= ${var.exception_thresholds["critical"]}"
+  query              = "avg(${var.monitor_exception_time_evaluation}):sum:api.res.exc.count{cluster:${var.cluster}, environment:${var.environment}} by {host,classname,methodname} >= ${var.exception_thresholds["critical"]}"
   thresholds         = "${var.exception_thresholds}"
   message            = "${var.exception_message}"
   escalation_message = "${var.exception_escalation_message}"
