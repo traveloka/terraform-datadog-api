@@ -61,6 +61,12 @@ variable "notify_audit" {
   description = "Whether any configuration changes should be notified"
 }
 
+variable "latency_p95_name" {
+  type        = "string"
+  default     = ""
+  description = "The name for API Latency monitor, else use default"
+}
+
 variable "latency_p95_thresholds" {
   type = "map"
 
@@ -83,6 +89,18 @@ variable "latency_p95_escalation_message" {
   description = "The escalation message when API Latency monitor isn't resolved for given time"
 }
 
+variable "latency_p95_include_tags" {
+  type        = "string"
+  default     = true
+  description = "The flag to include tags in name for API Latency monitor"
+}
+
+variable "exception_name" {
+  type        = "string"
+  default     = ""
+  description = "The name for API Exception monitor, else use default"
+}
+
 variable "exception_thresholds" {
   type = "map"
 
@@ -103,6 +121,12 @@ variable "exception_escalation_message" {
   type        = "string"
   default     = ""
   description = "The escalation message when API Exception monitor isn't resolved for given time"
+}
+
+variable "exception_include_tags" {
+  type        = "string"
+  default     = true
+  description = "The flag to include tags in name for API Exception monitor"
 }
 
 variable "monitor_exception_time_evaluation" {
