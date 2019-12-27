@@ -87,7 +87,9 @@ module "monitor_latency_p95" {
   tags           = "${var.tags}"
   timeboard_id   = "${join(",", datadog_timeboard.api.*.id)}"
 
-  name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - API Latency is High on Class: {{ classname }} Method: {{ methodname }}"
+  name               = "${var.latency_p95_name != "" ? 
+                        "${var.latency_p95_name}" :
+                        "${var.product_domain} - ${var.cluster} - ${var.environment} - API Latency is High on Class: {{ classname }} Method: {{ methodname }}"}"
   query              = "avg(last_1m):avg:api.res.ltcy.p95{cluster:${var.cluster}, environment:${var.environment}} by {host,classname,methodname} >= ${var.latency_p95_thresholds["critical"]}"
   thresholds         = "${var.latency_p95_thresholds}"
   message            = "${var.latency_p95_message}"
@@ -99,6 +101,7 @@ module "monitor_latency_p95" {
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
+  include_tags      = "${var.latency_p95_include_tags}"
 }
 
 module "monitor_exception" {
@@ -111,7 +114,9 @@ module "monitor_exception" {
   tags           = "${var.tags}"
   timeboard_id   = "${join(",", datadog_timeboard.api.*.id)}"
 
-  name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - API Exception is High on Class: {{ classname }} Method: {{ methodname }}"
+  name               = "${var.exception_name != "" ? 
+                        "${var.exception_name}" :
+                        "${var.product_domain} - ${var.cluster} - ${var.environment} - API Exception is High on Class: {{ classname }} Method: {{ methodname }}"}"
   query              = "avg(${var.monitor_exception_time_evaluation}):sum:api.res.exc.count{cluster:${var.cluster}, environment:${var.environment}} by {host,classname,methodname} >= ${var.exception_thresholds["critical"]}"
   thresholds         = "${var.exception_thresholds}"
   message            = "${var.exception_message}"
@@ -123,4 +128,5 @@ module "monitor_exception" {
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
+  include_tags      = "${var.exception_include_tags}"
 }
