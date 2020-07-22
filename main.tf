@@ -90,7 +90,7 @@ module "monitor_latency_p95" {
   name               = "${var.latency_p95_name != "" ? 
                         "${var.latency_p95_name}" :
                         "${var.product_domain} - ${var.cluster} - ${var.environment} - API Latency is High on Class: {{ classname }} Method: {{ methodname }}"}"
-  query              = "avg(last_1m):avg:api.res.ltcy.p95{cluster:${var.cluster}, environment:${var.environment}} by {host,classname,methodname} >= ${var.latency_p95_thresholds["critical"]}"
+  query              = "${coalesce(var.api_latency_p95_custom_query, "avg(last_1m):avg:api.res.ltcy.p95{cluster:${var.cluster}, environment:${var.environment}} by {host,classname,methodname} >= ${var.latency_p95_thresholds["critical"]}")}"
   thresholds         = "${var.latency_p95_thresholds}"
   message            = "${var.latency_p95_message}"
   escalation_message = "${var.latency_p95_escalation_message}"
@@ -117,7 +117,7 @@ module "monitor_exception" {
   name               = "${var.exception_name != "" ? 
                         "${var.exception_name}" :
                         "${var.product_domain} - ${var.cluster} - ${var.environment} - API Exception is High on Class: {{ classname }} Method: {{ methodname }}"}"
-  query              = "avg(${var.monitor_exception_time_evaluation}):sum:api.res.exc.count{cluster:${var.cluster}, environment:${var.environment}} by {host,classname,methodname} >= ${var.exception_thresholds["critical"]}"
+  query              = "${coalesce(var.api_exception_custom_query, "avg(${var.monitor_exception_time_evaluation}):sum:api.res.exc.count{cluster:${var.cluster}, environment:${var.environment}} by {host,classname,methodname} >= ${var.exception_thresholds["critical"]}")}"
   thresholds         = "${var.exception_thresholds}"
   message            = "${var.exception_message}"
   escalation_message = "${var.exception_escalation_message}"

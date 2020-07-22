@@ -134,3 +134,15 @@ variable "monitor_exception_time_evaluation" {
   default     = "last_1m"
   description = "time window evaluation that triggers an alert for API Exception"
 }
+
+variable "api_latency_p95_custom_query" {
+  type        = "string"
+  default     = ""
+  description = "The custom query for API Latency P95 monitoring"
+}
+
+variable "api_exception_custom_query" {
+  type        = "string"
+  default     = ""
+  description = "The custom query for API Response Exception monitoring"
+}
